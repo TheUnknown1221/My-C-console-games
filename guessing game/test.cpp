@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <string>
 #include <cstdlib>
 
 int genRandomNun(int num = 351) {
@@ -18,16 +17,20 @@ int playGame()
     do {
         std::cout << "\nguess: ";
         std::cin >> guesses;
+        // makes so you can only guess the same number once so once you say 10 you cant say it again
         for (int i = 0; i < vecGuesses.size(); i++) {
             if (guesses == vecGuesses[i]){
             std::cout << "you have already said that :|\n";
-            continue;
+            continue; 
             }
         }
+        // compares the guesses with the answer
         if (guesses > randomNUM) std::cout << "your a bit high there!\n";
         else std::cout << "bit low aren't we?\n";
+        // adds the guess to the vector
         vecGuesses.push_back(guesses);
     } while(guesses != randomNUM);
+    // prints the score to the console when done
     std::cout << "score: " << vecGuesses.size();
     return (int)vecGuesses.size();
     
