@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <cstdlib>
 
 int genRandomNun(int num = 351) {
@@ -10,7 +11,8 @@ int genRandomNun(int num = 351) {
 
 int playGame()
 {
-    int randomNUM = genRandomNun();
+    int max = 351;
+    int randomNUM = genRandomNun(max);
     int guesses = 0;
     std::vector<int> vecGuesses;
     std::cout << "guess the number!\n";
@@ -25,6 +27,10 @@ int playGame()
             }
         }
         // compares the guesses with the answer
+        if (guesses > (max-1)) {
+            std::cout << "bit too high the max number is " << max-1 << std::endl;
+            continue;
+        }
         if (guesses > randomNUM) std::cout << "your a bit high there!\n";
         else std::cout << "bit low aren't we?\n";
         // adds the guess to the vector
@@ -67,3 +73,5 @@ int main()
         }
     }
 }
+
+
