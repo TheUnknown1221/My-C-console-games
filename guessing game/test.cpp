@@ -2,13 +2,48 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
+#include <istream>
+#include <fstream>
 
-int genRandomNun(int num = 351) {
-    return rand() % num;
+// compares and writes to the high score file
+int writeNewScore(int newScore, int currentScore) {
+    if (newScore > currentScore) return currentScore;
+    std::fstream inputFile ("score.txt");
+    if (!inputFile.is_open()) {
+        std::cout << "missing file creating file...\n";
+        std::fstream newFile ("score.txt", std::ios::app);
+        newFile << 0;
+        std::cout << "file created...";
+        newFile.close(); 
+        }
+    inputFile << newScore;
+    return newScore;
+
+}
+// check the highscore file for any current high scores
+int highscoreFile() {
+    std::fstream inputFile;
+    int score;
+    inputFile.open("score.txt");
+    if (!inputFile.is_open()) {
+        std::cout << "missing file creating file...\n";
+        std::fstream newFile ("score.txt", std::ios::app);
+        newFile << 0;
+        std::cout << "file created...";
+        newFile.close();
+        return 0;
+    } inputFile >> score;
+    inputFile.close();
+    return score;
 }
 
+int genRandomNun(int num = 351) {
+    int i = rand() % num;
+    if (i != 208) return i;
+    return genRandomNun(num);
+}
 
-
+// da game
 int playGame()
 {
     int max = 351;
@@ -32,20 +67,22 @@ int playGame()
             continue;
         }
         if (guesses > randomNUM) std::cout << "your a bit high there!\n";
-        else std::cout << "bit low aren't we?\n";
+        else if (guesses < randomNUM) std::cout << "bit low aren't we?\n";
         // adds the guess to the vector
         vecGuesses.push_back(guesses);
     } while(guesses != randomNUM);
     // prints the score to the console when done
-    std::cout << "score: " << vecGuesses.size();
+    std::cout << "score: " << vecGuesses.size() << "\n";
     return (int)vecGuesses.size();
     
 }
 
+// menu
 int main()
 {
     bool running = true;
     int menu, x, highScore = 0;
+    highScore = highscoreFile();
     
     // menu for the game
     while(running)
@@ -58,7 +95,7 @@ int main()
             // guessing game
                 x = playGame();
                 if (highScore == 0) highScore = x;
-                else if (x < highScore) highScore = x;
+                highScore = writeNewScore(x, highScore);
                 break;
 
             case 2:
@@ -73,5 +110,3 @@ int main()
         }
     }
 }
-
-
