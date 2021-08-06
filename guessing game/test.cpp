@@ -2,10 +2,9 @@
 #include <vector>
 #include <string>
 #include <cstdlib>
-#include <istream>
 #include <fstream>
 
-// compares and writes to the high score file
+// compares and writes to the highscore file
 int writeNewScore(int newScore, int currentScore) {
     if (newScore > currentScore) return currentScore;
     std::fstream inputFile ("score.txt");
