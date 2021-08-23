@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 
-#include "./teacher/teacher.h"
-#include "./user/user.h"
+#include "teacher.h"
+#include "user.h"
 
 int main() {
     User user;
