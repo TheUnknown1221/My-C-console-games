@@ -1,7 +1,7 @@
 #ifndef TEACHER_h
 #define TEACHER_h
 
-#include "../user/user.h"
+#include "user.h"
 
 class Teacher : public User 
 {
